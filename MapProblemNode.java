@@ -20,6 +20,7 @@ public class MapProblemNode implements ProblemNode {
         int height = Integer.parseInt(rows[0].split(" ")[1].trim());
 
         //Initialize variables
+        path = new LinkedList<int[]>();
         parent = null;
         map = new char[width][height];
         exploredLocations = new boolean[width][height];
@@ -91,6 +92,14 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0];
             childLocation[1] = location[1] - 1;
+            ProblemNode c = new MapProblemNode(this, childLocation);
+            childNodes.add(c);
+        }
+
+        if (location[1] + 1 < map[0].length && map[location[0]][location[1]+1] != '#' && exploredLocations[location[0]][location[1]+1] == false) {
+            int[] childLocation = new int[2];
+            childLocation[0] = location[0];
+            childLocation[1] = location[1] + 1;
             ProblemNode c = new MapProblemNode(this, childLocation);
             childNodes.add(c);
         }
