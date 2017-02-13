@@ -4,7 +4,7 @@
 
 //This is the Taxi Distance heuristic, used in the AStarSearch strategy. 
 //This heuristic sorts the priority queue by which node is closest to the goal
-//in taxicab distance (also known as city block distance, Manhatten distance, snake distance, etc)
+//in taxicab distance (also known as city block distance, Manhattan distance, snake distance, etc)
 //while also taking into account the current path cost.
 //Simply calculates (x2-x1) + (y2-y1). It seems similar to the straight line distance, but can
 //give some pretty different results.
