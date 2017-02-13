@@ -1,14 +1,18 @@
 import java.util.LinkedList;
 import java.util.Stack;
 
+//Depth-first search strategy. Implemented using a stack.
 public class DFSearch implements SearchStrategy {
     private Stack<ProblemNode> frontierStack;
 
+    //Constructor
     public DFSearch(ProblemNode rootNode) {
         frontierStack = new Stack<ProblemNode>();
         frontierStack.push(rootNode);
     }
 
+    //Search method returns the first node to be added to the stack which is at the goal location, 
+    //or null if no such node is found.
     public ProblemNode search() {
         while (frontierStack.empty() == false) {
             ProblemNode node = frontierStack.pop();

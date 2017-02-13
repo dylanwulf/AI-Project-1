@@ -1,3 +1,7 @@
+//This is the Straight Line heuristic, used in the AStarSearch strategy.
+//This heuristic sorts the priority queue by which node is closest to the goal
+//in a straight line, while also taking into account the current path cost.
+//Uses the distance formula sqrt((x2-x1)^2 + (y2-y1)^2)
 public class MapHeuristicStraightLine implements MapHeuristic {
 
     public int compareNodes(MapProblemNode a, MapProblemNode b) {
