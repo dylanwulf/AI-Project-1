@@ -19,6 +19,7 @@ Building:
 To build this program, simply run the following command  
 javac MapSolver.java  
 The Java compiler should automatically compile all the other files as required.  
+A warning will appear about unchecked or unsafe operations; this can be ignored.
 
 Running:  
 This program is run using a command like this  
