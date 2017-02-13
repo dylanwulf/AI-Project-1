@@ -9,9 +9,10 @@ public class MapProblemNode implements ProblemNode {
     MapProblemNode parent;
     private static boolean[][] exploredLocations;
     private int pathCost;
-    private LinkedList<int[]> path;
+    private LinkedList<String> path;
+    private MapHeuristic heuristic;
 
-    public MapProblemNode(String mapStr) {
+    public MapProblemNode(String mapStr, MapHeuristic heuristic) {
         //split map string by newline characters
         String[] rows = mapStr.split("\n");
 
@@ -20,7 +21,7 @@ public class MapProblemNode implements ProblemNode {
         int height = Integer.parseInt(rows[0].split(" ")[1].trim());
 
         //Initialize variables
-        path = new LinkedList<int[]>();
+        path = new LinkedList<String>();
         parent = null;
         map = new char[width][height];
         exploredLocations = new boolean[width][height];
@@ -28,6 +29,7 @@ public class MapProblemNode implements ProblemNode {
         startLocation = new int[2];
         goalLocation = new int[2];
         pathCost = 0;
+        this.heuristic = heuristic;
 
         //fill in exploredLocations with all false
         for (int y = 0; y < height; y++) {
@@ -56,16 +58,17 @@ public class MapProblemNode implements ProblemNode {
 
     }
 
-    private MapProblemNode(MapProblemNode parent, int[] location) {
+    private MapProblemNode(MapProblemNode parent, int[] location, String directionMoved, MapHeuristic heuristic) {
         this.parent = parent;
         this.location = location;
-        this.path = (LinkedList<int[]>) parent.getPath().clone();
-        this.path.add(this.location);
+        this.path = (LinkedList<String>) parent.getPath().clone();
+        this.path.add("Move " + directionMoved + " to " + location[0] + ", " + location[1]);
         char me = map[location[0]][location[1]];
         if (me == '.' || me == 's' || me == 'g')
             pathCost = parent.getPathCost() + 1;
         if (me == ',')
             pathCost = parent.getPathCost() + 2;
+        this.heuristic = heuristic;
     }
 
     public LinkedList<ProblemNode> getChildNodes() {
@@ -76,7 +79,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0] - 1;
             childLocation[1] = location[1];
-            ProblemNode c = new MapProblemNode(this, childLocation);
+            ProblemNode c = new MapProblemNode(this, childLocation, "left", heuristic);
             childNodes.add(c);
         }
 
@@ -84,7 +87,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0] + 1;
             childLocation[1] = location[1];
-            ProblemNode c = new MapProblemNode(this, childLocation);
+            ProblemNode c = new MapProblemNode(this, childLocation, "right", heuristic);
             childNodes.add(c);
         }
 
@@ -92,7 +95,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0];
             childLocation[1] = location[1] - 1;
-            ProblemNode c = new MapProblemNode(this, childLocation);
+            ProblemNode c = new MapProblemNode(this, childLocation, "up", heuristic);
             childNodes.add(c);
         }
 
@@ -100,7 +103,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0];
             childLocation[1] = location[1] + 1;
-            ProblemNode c = new MapProblemNode(this, childLocation);
+            ProblemNode c = new MapProblemNode(this, childLocation, "down", heuristic);
             childNodes.add(c);
         }
 
@@ -111,11 +114,29 @@ public class MapProblemNode implements ProblemNode {
         return map[location[0]][location[1]] == 'g';
     }
 
-    public LinkedList<int[]> getPath() {
+    public LinkedList<String> getPath() {
         return path;
     }
 
     public int getPathCost() {
         return pathCost;
+    }
+
+    public int[] getLocation() {
+        int[] loc = new int[2];
+        loc[0] = location[0];
+        loc[1] = location[1];
+        return loc;
+    }
+
+    public static int[] getGoalLocation() {
+        int[] loc = new int[2];
+        loc[0] = goalLocation[0];
+        loc[1] = goalLocation[1];
+        return loc;
+    }
+
+    public int compareTo(ProblemNode b) {
+        return heuristic.compareNodes(this, (MapProblemNode) b);
     }
 }

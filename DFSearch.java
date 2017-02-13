@@ -9,12 +9,12 @@ public class DFSearch {
         frontierStack.push(rootNode);
     }
 
-    public LinkedList<int[]> search() {
+    public ProblemNode search() {
         while (frontierStack.empty() == false) {
             ProblemNode node = frontierStack.pop();
             LinkedList<ProblemNode> nodeChildren = node.getChildNodes();
             for (ProblemNode p : nodeChildren) {
-                if (p.isGoalNode()) return p.getPath();
+                if (p.isGoalNode()) return p;
                 frontierStack.push(p);
             }
         }

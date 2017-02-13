@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
-public interface ProblemNode {
+public interface ProblemNode extends Comparable<ProblemNode> {
     public LinkedList<ProblemNode> getChildNodes();
     public boolean isGoalNode();
-    public LinkedList<int[]> getPath();
+    public LinkedList<String> getPath();
 
 }
