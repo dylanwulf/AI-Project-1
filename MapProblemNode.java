@@ -87,6 +87,14 @@ public class MapProblemNode implements ProblemNode {
             childNodes.add(c);
         }
 
+        if (location[1] - 1 >= 0 && map[location[0]][location[1]-1] != '#' && exploredLocations[location[0]][location[1]-1] == false) {
+            int[] childLocation = new int[2];
+            childLocation[0] = location[0];
+            childLocation[1] = location[1] - 1;
+            ProblemNode c = new MapProblemNode(this, childLocation);
+            childNodes.add(c);
+        }
+
         return childNodes;
     }
 
