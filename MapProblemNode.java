@@ -1,3 +1,7 @@
+//Dylan Wulf
+//Artificial Intelligence Project 1
+//Feb 12, 2017
+
 import java.util.LinkedList;
 
 //This class describes a node in a map/maze problem.
@@ -59,7 +63,6 @@ public class MapProblemNode implements ProblemNode {
                 }
             }
         }
-
     }
 
     //Private constructor only available from within this class

@@ -1,3 +1,7 @@
+//Dylan Wulf
+//Artificial Intelligence Project 1
+//Feb 12, 2017
+
 //This is the Taxi Distance heuristic, used in the AStarSearch strategy. 
 //This heuristic sorts the priority queue by which node is closest to the goal
 //in taxicab distance (also known as city block distance, Manhatten distance, snake distance, etc)

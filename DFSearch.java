@@ -1,3 +1,7 @@
+//Dylan Wulf
+//Artificial Intelligence Project 1
+//Feb 12, 2017
+
 import java.util.LinkedList;
 import java.util.Stack;
 

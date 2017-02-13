@@ -1,3 +1,7 @@
+//Dylan Wulf
+//Artificial Intelligence Project 1
+//Feb 12, 2017
+
 //This is the Straight Line heuristic, used in the AStarSearch strategy.
 //This heuristic sorts the priority queue by which node is closest to the goal
 //in a straight line, while also taking into account the current path cost.

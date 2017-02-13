@@ -1,3 +1,7 @@
+//Dylan Wulf
+//Artificial Intelligence Project 1
+//Feb 12, 2017
+
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,10 +63,11 @@ public class MapSolver {
             System.out.println("Start at location " + startX + ", " + startY + ".");
             for (String step : goalNode.getPath())
                 System.out.println(step);
+            System.out.println("Path cost: " + goalNode.getPathCost());
         }
+
         System.out.println("Time taken: " + timeTaken + " nanoseconds");
         System.out.println("Nodes created: " + MapProblemNode.getCreatedNodes());
-
     }
 
     //Takes in the search strategy argument and the string representation of the map
