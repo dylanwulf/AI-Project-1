@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFSearch {
+public class BFSearch implements SearchStrategy {
     private Queue<ProblemNode> frontierQueue;
 
     public BFSearch(ProblemNode rootNode) {

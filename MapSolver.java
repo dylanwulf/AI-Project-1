@@ -8,7 +8,7 @@ public class MapSolver {
     
     public static void main(String[] args) throws IOException, FileNotFoundException {
         String mapStr = readMap(args[0]);
-        /*MapProblemNode m = new MapProblemNode(mapStr, null);
+        MapProblemNode m = new MapProblemNode(mapStr, null);
         BFSearch bfs = new BFSearch(m);
         System.out.println("BFS:");
         System.out.println("Start at location " + m.getLocation()[0] + ", " + m.getLocation()[1]);
@@ -28,7 +28,7 @@ public class MapSolver {
         else
             for (String p : dfsSolution.getPath()) {
                 System.out.println(p);
-            }*/
+            }
 
         System.out.println("A*:");
         MapProblemNode m3 = new MapProblemNode(mapStr, new MapHeuristicGeoDistance());

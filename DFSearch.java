@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class DFSearch {
+public class DFSearch implements SearchStrategy {
     private Stack<ProblemNode> frontierStack;
 
     public DFSearch(ProblemNode rootNode) {

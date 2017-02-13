@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class AStarSearch {
+public class AStarSearch implements SearchStrategy {
     private PriorityQueue<ProblemNode> frontierQueue;
 
     public AStarSearch(ProblemNode rootNode) {
