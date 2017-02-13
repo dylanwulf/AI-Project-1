@@ -1,4 +1,4 @@
-public class MapHeuristicGeoDistance implements MapHeuristic {
+public class MapHeuristicTaxiDistance implements MapHeuristic {
 
     public int compareNodes(MapProblemNode a, MapProblemNode b) {
        int[] goalLoc = MapProblemNode.getGoalLocation();

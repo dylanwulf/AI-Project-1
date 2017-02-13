@@ -8,6 +8,7 @@ public class MapProblemNode implements ProblemNode {
     private static int[] goalLocation;
     MapProblemNode parent;
     private static boolean[][] exploredLocations;
+    private static long createdNodes;
     private int pathCost;
     private LinkedList<String> path;
     private MapHeuristic heuristic;
@@ -21,6 +22,7 @@ public class MapProblemNode implements ProblemNode {
         int height = Integer.parseInt(rows[0].split(" ")[1].trim());
 
         //Initialize variables
+        createdNodes = 1;
         path = new LinkedList<String>();
         parent = null;
         map = new char[width][height];
@@ -59,6 +61,7 @@ public class MapProblemNode implements ProblemNode {
     }
 
     private MapProblemNode(MapProblemNode parent, int[] location, String directionMoved, MapHeuristic heuristic) {
+        createdNodes++;
         this.parent = parent;
         this.location = location;
         this.path = (LinkedList<String>) parent.getPath().clone();
@@ -136,7 +139,18 @@ public class MapProblemNode implements ProblemNode {
         return loc;
     }
 
+    public static int[] getStartLocation() {
+        int[] loc = new int[2];
+        loc[0] = startLocation[0];
+        loc[1] = startLocation[1];
+        return loc;
+    }
+
     public int compareTo(ProblemNode b) {
         return heuristic.compareNodes(this, (MapProblemNode) b);
+    }
+
+    public static long getCreatedNodes() {
+        return createdNodes;
     }
 }
