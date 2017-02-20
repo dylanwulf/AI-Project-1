@@ -46,11 +46,12 @@ public class MapSolver {
         }
 
         //Search for a solution and record time taken
-        long startTime = System.nanoTime();
-
+        long startTime = 0;
+        long endTime = 0;
+        startTime = System.nanoTime();
+        //Initiate the actual search
         MapProblemNode goalNode = (MapProblemNode) strategy.search();
-
-        long endTime = System.nanoTime();
+        endTime = System.nanoTime();
         long timeTaken = endTime - startTime;
 
         if (goalNode == null) {
