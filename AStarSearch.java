@@ -24,7 +24,7 @@ public class AStarSearch implements SearchStrategy {
             ProblemNode node = frontierQueue.remove();
             LinkedList<ProblemNode> nodeChildren = node.getChildNodes();
             for (ProblemNode p : nodeChildren) {
-                if (p.isGoalNode()) return p;
+                if (p.isGoalNode() && frontierQueue.peek().getPathCost() >= p.getPathCost()) return p;
                 frontierQueue.add(p);
             }
         }
