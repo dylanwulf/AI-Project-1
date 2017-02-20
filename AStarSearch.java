@@ -26,7 +26,7 @@ public class AStarSearch implements SearchStrategy {
             for (ProblemNode p : nodeChildren) {
                 frontierQueue.add(p);
             }
-            if (frontierQueue.peek().isGoalNode())
+            if (frontierQueue.size() > 0 && frontierQueue.peek().isGoalNode())
                 return frontierQueue.remove();
         }
         return null;
