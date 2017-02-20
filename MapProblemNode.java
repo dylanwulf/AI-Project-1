@@ -130,6 +130,7 @@ public class MapProblemNode implements ProblemNode {
         return map[location[0]][location[1]] == 'g';
     }
 
+    /* This way of doing it works, but runs out of stack memory if the path is too long
     //Return the string path from the start to this node's location
     public LinkedList<String> getPath() {
         if (location[0] == startLocation[0] && location[1] == startLocation[1]) {
@@ -152,6 +153,38 @@ public class MapProblemNode implements ProblemNode {
             path.add("Move " + direction + " to " + location[0] + ", " + location[1]);
             return path;
         }
+    }*/
+
+    //Return parent object
+    public MapProblemNode getParent() {
+        return parent;
+    }
+
+    //Return the string path from the start to this node's location
+    public LinkedList<String> getPath() {
+        LinkedList<String> path = new LinkedList<String>();
+        MapProblemNode current = this;
+        MapProblemNode curParent = parent;
+        int[] curLoc = location;
+        int[] parentLoc = location;
+        while (curParent != null) {
+            curLoc = parentLoc;
+            parentLoc = curParent.getLocation();
+            String direction = "";
+            if (parentLoc[0] - 1 == curLoc[0])
+                direction = "left";
+            else if (parentLoc[0] + 1 == curLoc[0])
+                direction = "right";
+            else if (parentLoc[1] - 1 == curLoc[1])
+                direction = "up";
+            else
+                direction = "down";
+            path.addFirst("Move " + direction + " to " + curLoc[0] + ", " + curLoc[1]);
+            current = curParent;
+            curParent = current.getParent();
+        }
+        path.addFirst("Start at " + startLocation[0] + ", " + startLocation[1]);
+        return path;
     }
 
     //Return the total path cost of the path described by the string stored in 'path'
