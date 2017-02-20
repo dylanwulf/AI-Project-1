@@ -15,7 +15,6 @@ public class MapProblemNode implements ProblemNode {
     private static boolean[][] exploredLocations; //array of locations already explored
     private static long createdNodes; //static counter for number of nodes created
     private int pathCost; //cost of the path described by path
-    private LinkedList<String> path; //list of strings that describe movements and coordinates in path
     private MapHeuristic heuristic; //object which contains the heuristic used in compareTo method
 
     //Public constructor available from outside this class
@@ -29,7 +28,6 @@ public class MapProblemNode implements ProblemNode {
 
         //Initialize variables
         createdNodes = 1; //set to one, since this will always be the first one
-        path = new LinkedList<String>();
         parent = null;
         map = new char[width][height];
         exploredLocations = new boolean[width][height];
@@ -66,14 +64,12 @@ public class MapProblemNode implements ProblemNode {
     }
 
     //Private constructor only available from within this class
-    private MapProblemNode(MapProblemNode parent, int[] location, String directionMoved, MapHeuristic heuristic) {
+    private MapProblemNode(MapProblemNode parent, int[] location, MapHeuristic heuristic) {
         createdNodes++; //increment number of nodes created
         this.parent = parent;
         this.location = location;
         //Clone parent's path and add current location to it.
         //it's only a shallow copy, but that's ok because the objects do not get changed after this.
-        this.path = (LinkedList<String>) parent.getPath().clone();
-        this.path.add("Move " + directionMoved + " to " + location[0] + ", " + location[1]);
         char me = map[location[0]][location[1]]; //character at this node's location
         if (me == '.' || me == 's' || me == 'g')
             pathCost = parent.getPathCost() + 1; //period, s, g cost 1
@@ -95,7 +91,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0] - 1;
             childLocation[1] = location[1];
-            ProblemNode c = new MapProblemNode(this, childLocation, "left", heuristic);
+            ProblemNode c = new MapProblemNode(this, childLocation, heuristic);
             childNodes.add(c);
         }
 
@@ -104,7 +100,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0] + 1;
             childLocation[1] = location[1];
-            ProblemNode c = new MapProblemNode(this, childLocation, "right", heuristic);
+            ProblemNode c = new MapProblemNode(this, childLocation, heuristic);
             childNodes.add(c);
         }
 
@@ -113,7 +109,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0];
             childLocation[1] = location[1] - 1;
-            ProblemNode c = new MapProblemNode(this, childLocation, "up", heuristic);
+            ProblemNode c = new MapProblemNode(this, childLocation, heuristic);
             childNodes.add(c);
         }
 
@@ -122,7 +118,7 @@ public class MapProblemNode implements ProblemNode {
             int[] childLocation = new int[2];
             childLocation[0] = location[0];
             childLocation[1] = location[1] + 1;
-            ProblemNode c = new MapProblemNode(this, childLocation, "down", heuristic);
+            ProblemNode c = new MapProblemNode(this, childLocation, heuristic);
             childNodes.add(c);
         }
 
@@ -136,7 +132,26 @@ public class MapProblemNode implements ProblemNode {
 
     //Return the string path from the start to this node's location
     public LinkedList<String> getPath() {
-        return path;
+        if (location[0] == startLocation[0] && location[1] == startLocation[1]) {
+            LinkedList<String> path = new LinkedList<String>();
+            path.add("Start at location " + location[0] + ", " + location[1]);
+            return path;
+        }
+        else {
+            LinkedList<String> path = parent.getPath();
+            int[] parentLoc = parent.getLocation();
+            String direction = "";
+            if (parentLoc[0] - 1 == location[0])
+                direction = "left";
+            else if (parentLoc[0] + 1 == location[0])
+                direction = "right";
+            else if (parentLoc[1] - 1 == location[1])
+                direction = "up";
+            else
+                direction = "down";
+            path.add("Move " + direction + " to " + location[0] + ", " + location[1]);
+            return path;
+        }
     }
 
     //Return the total path cost of the path described by the string stored in 'path'

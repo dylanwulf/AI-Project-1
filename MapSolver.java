@@ -60,7 +60,6 @@ public class MapSolver {
             int startX = MapProblemNode.getStartLocation()[0];
             int startY = MapProblemNode.getStartLocation()[1];
             System.out.println("Solution:");
-            System.out.println("Start at location " + startX + ", " + startY + ".");
             for (String step : goalNode.getPath())
                 System.out.println(step);
             System.out.println("Path cost: " + goalNode.getPathCost());
