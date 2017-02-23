@@ -92,12 +92,7 @@ public class MapSolver {
         long fileSize = mapFile.length(); //get file size
         FileReader fr = new FileReader(mapFile);
         char[] map = new char[(int)fileSize]; //make array that's the same size as the file
-        int currentChar = 0;
-        while (currentChar < map.length) {
-            int nextChar = fr.read(); //read char by char
-            if (nextChar == -1) currentChar = map.length; //if we hit EOF, exit loop
-            else map[currentChar++] = (char) nextChar; //put char into array, then increment
-        }
+        fr.read(map);
         fr.close();
         return new String(map);
     }
